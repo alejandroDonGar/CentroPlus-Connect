@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase Sqlite3Manager que maneja la conexión con la base de datos

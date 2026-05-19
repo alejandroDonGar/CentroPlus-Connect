@@ -7,7 +7,7 @@ import es.ies.puerto.repositories.interfaces.IIncidenciaRepository;
 import es.ies.puerto.services.interfaces.IIncidenciaService;
 import es.ies.puerto.utils.Validaciones;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase IncidenciaService donde implementamos los metodos de IIncidenciaService

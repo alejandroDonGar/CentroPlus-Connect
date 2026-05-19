@@ -6,7 +6,7 @@ import es.ies.puerto.modelos.Incidencias;
 import es.ies.puerto.modelos.Reservas;
 import es.ies.puerto.modelos.Usuarios;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase Validaciones

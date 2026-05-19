@@ -1,6 +1,6 @@
 package es.ies.puerto.modelos;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase Actividades

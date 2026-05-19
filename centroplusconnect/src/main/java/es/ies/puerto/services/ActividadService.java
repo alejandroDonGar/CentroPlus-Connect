@@ -6,7 +6,7 @@ import es.ies.puerto.repositories.interfaces.IActividadRepository;
 import es.ies.puerto.services.interfaces.IActividadService;
 import es.ies.puerto.utils.Validaciones;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase ActividadService donde implementamos los metodos de IActividadService

@@ -8,7 +8,7 @@ import java.util.List;
 import es.ies.puerto.modelos.Incidencias;
 import es.ies.puerto.repositories.interfaces.IIncidenciaRepository;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase IncidenciaRepository donde implementamos los metodos de IIncidenciaRepository

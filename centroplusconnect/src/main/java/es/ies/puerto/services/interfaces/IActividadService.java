@@ -3,7 +3,7 @@ import java.util.List;
 import es.ies.puerto.modelos.Actividades;
 import es.ies.puerto.modelos.Reservas;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Interfaz IActividadService que realiza la logica de la actividad

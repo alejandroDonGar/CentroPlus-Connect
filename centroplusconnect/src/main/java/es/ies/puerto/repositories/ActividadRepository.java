@@ -8,7 +8,7 @@ import es.ies.puerto.modelos.Actividades;
 import es.ies.puerto.modelos.Reservas;
 import es.ies.puerto.repositories.interfaces.IActividadRepository;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase ActividadRepository donde implementamos los metodos de IActividadRepository

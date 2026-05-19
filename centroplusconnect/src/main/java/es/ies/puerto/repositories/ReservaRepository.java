@@ -8,7 +8,7 @@ import java.util.List;
 import es.ies.puerto.modelos.Reservas;
 import es.ies.puerto.repositories.interfaces.IReservaRepository;
 /**
- * @author AlejandroDonGar
+ * @author AlejandroDonGar y JavierReyPer
  * @version 1.0.0
  * 
  * Clase ReservaRepository donde implementamos los metodos de IReservaRepository
