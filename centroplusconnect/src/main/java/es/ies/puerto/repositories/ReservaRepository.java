@@ -1,5 +1,121 @@
 package es.ies.puerto.repositories;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import es.ies.puerto.modelos.Reservas;
+import es.ies.puerto.repositories.interfaces.IReservaRepository;
+/**
+ * @author AlejandroDonGar
+ * @version 1.0.0
+ * 
+ * Clase ReservaRepository donde implementamos los metodos de IReservaRepository
+ */
+public class ReservaRepository implements IReservaRepository{
 
-public class ReservaRepository {
-
+    @Override
+    public List<Reservas> findAll() {
+        List<Reservas> reservasEncontradas = new ArrayList<>();
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM reservas")) {
+                ResultSet resultado = sentencia.executeQuery();
+                while (resultado.next()) {
+                    Integer id = resultado.getInt("id");
+                    Integer idUsuario = resultado.getInt("id_usuario");
+                    Integer idActividad = resultado.getInt("id_actividad");
+                    Date fecha = resultado.getDate("fecha");
+                    String estado = resultado.getString("estado");
+                    Reservas reserva = new Reservas(id, idUsuario, idActividad, fecha, estado);
+                    reservasEncontradas.add(reserva);
+                    return reservasEncontradas;
+                }
+        } catch (Exception e) {
+            System.err.println("No se han encontrado los elementos");
+            return new ArrayList<>();
+        }
+        return reservasEncontradas;
+    }
+    @Override
+    public Reservas findByID(Integer id) {
+        Reservas reservaEncontrada = null;
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM reservas WHERE id=?")) {
+                sentencia.setInt(1, id);
+                ResultSet resultado = sentencia.executeQuery();
+                while (resultado.next()) {
+                    Integer idUsuario = resultado.getInt("id_usuario");
+                    Integer idActividad = resultado.getInt("id_actividad");
+                    Date fecha = resultado.getDate("fecha");
+                    String estado = resultado.getString("estado");
+                    reservaEncontrada = new Reservas(id, idUsuario, idActividad, fecha, estado);
+                    return reservaEncontrada;
+                }
+        } catch (Exception e) {
+            System.err.println("No se ha encontrado el elemento");
+            return null;
+        }
+        return reservaEncontrada;
+    }
+    @Override
+    public boolean save(Reservas reserva) {
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("INSERT INTO reservas VALUES (?,?,?,?,?)")) {
+                sentencia.setInt(1, reserva.getId());
+                sentencia.setInt(2, reserva.getIdUsuario());
+                sentencia.setInt(3, reserva.getIdActividad());
+                sentencia.setString(4, reserva.getFecha().toString());
+                sentencia.setString(5, reserva.isEstado());
+                return sentencia.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.err.println("No se ha podido guardar la reserva");
+            return false;
+        }
+    }
+    @Override
+    public boolean update(Reservas reserva) {
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("UPDATE reservas SET id_usuario=?, id_actividad=?, fecha=?, estado=? WHERE id=?")) {
+                sentencia.setInt(1, reserva.getIdUsuario());
+                sentencia.setInt(2, reserva.getIdActividad());
+                sentencia.setString(3, reserva.getFecha().toString());
+                sentencia.setString(4, reserva.isEstado());
+                sentencia.setInt(5, reserva.getId());
+                return sentencia.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.err.println("No se ha podido actualizar la reserva");
+            return false;
+        }
+    }
+    @Override
+    public boolean delete(Integer id) {
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("DELETE FROM reservas WHERE id=?")) {
+                sentencia.setInt(1, id);
+                return sentencia.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.err.println("No se ha podido borrar la reserva");
+            return false;
+        }
+    }
+    @Override
+    public Integer numeroDePlazasDisponibles(Integer idActividad) {
+        Integer plazasDisponibles = 0;
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("SELECT act.plazas_maximas, act.plazas_ocupadas FROM actividades AS act INNER JOIN reservas AS re ON act.id=re.id_actividad WHERE idActividad=?")) {
+                sentencia.setInt(1, idActividad);
+                ResultSet resultado = sentencia.executeQuery();
+                while (resultado.next()) {
+                    Integer plazasMaximas = resultado.getInt("plazas_maximas");
+                    Integer plazasOcupadas = resultado.getInt("plazas_ocupadas");
+                    plazasDisponibles = plazasMaximas - plazasOcupadas;
+                    return plazasDisponibles;
+                }
+        } catch (Exception e) {
+            System.err.println("No se ha podido calcular el numero de plazas disponibles");
+            return -1;
+        }
+        return plazasDisponibles;
+    }
 }

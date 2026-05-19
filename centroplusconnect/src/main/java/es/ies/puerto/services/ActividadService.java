@@ -2,8 +2,9 @@ package es.ies.puerto.services;
 import java.util.List;
 import es.ies.puerto.modelos.Actividades;
 import es.ies.puerto.modelos.Reservas;
-import es.ies.puerto.modelos.Usuarios;
+import es.ies.puerto.repositories.interfaces.IActividadRepository;
 import es.ies.puerto.services.interfaces.IActividadService;
+import es.ies.puerto.utils.Validaciones;
 /**
  * @author AlejandroDonGar
  * @version 1.0.0
@@ -12,59 +13,60 @@ import es.ies.puerto.services.interfaces.IActividadService;
  */
 public class ActividadService implements IActividadService {
 
+    IActividadRepository actividadRepository;
+
     @Override
     public List<Actividades> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return actividadRepository.findAll();
     }
-
     @Override
     public Actividades findByID(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
+        if(!Validaciones.esIntegerValido(id)) {
+            return null;
+        }
+        return actividadRepository.findByID(id);
     }
-
     @Override
     public boolean save(Actividades actividad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        if(!Validaciones.esActividadValida(actividad)) {
+            return false;
+        }
+        return actividadRepository.save(actividad);
     }
-
     @Override
     public boolean update(Actividades actividad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        if(!Validaciones.esActividadValida(actividad)) {
+            return false;
+        }
+        return actividadRepository.update(actividad);
     }
-
     @Override
     public boolean delete(Actividades actividad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        if(!Validaciones.esActividadValida(actividad)) {
+            return false;
+        }
+        return actividadRepository.delete(actividad);
     }
-
     @Override
     public Reservas reservarPlaza(Integer idCliente, Integer idActividad) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reservarPlaza'");
+        return null;
     }
-
     @Override
-    public boolean cancelarPlaza(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelarPlaza'");
+    public boolean cancelarPlaza(Integer idActividad) {
+        if(!Validaciones.esIntegerValido(idActividad)) {
+            return false;
+        }
+        return actividadRepository.cancelarPlaza(idActividad);
     }
-
     @Override
-    public List<Actividades> findCompletas(Integer plazasOcupadas) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findCompletas'");
+    public List<Actividades> findCompletas() {
+        return actividadRepository.findCompletas();
     }
-
     @Override
     public Double calcularIngresosTotales(Integer plazasOcupadas, Double precio) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calcularIngresosTotales'");
+        if(!Validaciones.esPlazasOcupadas(plazasOcupadas)||!Validaciones.esDoubleValido(precio)) {
+            return 0.0;
+        }
+        return actividadRepository.calcularIngresosTotales(plazasOcupadas, precio);
     }
-
-    
 }

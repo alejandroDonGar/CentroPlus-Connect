@@ -21,7 +21,7 @@ public class ActividadRepository implements IActividadRepository {
     public List<Actividades> findAll() {
         List<Actividades> actividadesEncontradas = new ArrayList<>();
         try (Connection connection = Sqlite3Manager.getConnection();
-            PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM usuarios")) {
+            PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM actividades")) {
                 ResultSet resultado = sentencia.executeQuery();
                 while(resultado.next()) {
                     Integer id = resultado.getInt("id");
@@ -115,18 +115,43 @@ public class ActividadRepository implements IActividadRepository {
         throw new UnsupportedOperationException("Unimplemented method 'reservarPlaza'");
     }
     @Override
-    public boolean cancelarPlaza(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelarPlaza'");
+    public boolean cancelarPlaza(Integer idActividad) {
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("UPDATE reservas SET estado=CANCELADA WHERE id_actividad=?")) {
+                sentencia.setInt(1, idActividad);
+                return sentencia.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.err.println("No se ha podido actualizar la reserva");
+            return false;
+        }
     }
     @Override
-    public List<Actividades> findCompletas(Integer plazasOcupadas) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findCompletas'");
+    public List<Actividades> findCompletas() {
+        List<Actividades> actividadesCompletas = new ArrayList<>();
+        try (Connection connection = Sqlite3Manager.getConnection();
+            PreparedStatement sentencia = connection.prepareStatement("SELECT * FROM actividades WHERE plazas_ocupadas=plazas_maximas")) {
+                ResultSet resultado = sentencia.executeQuery();
+                while(resultado.next()) {
+                    Integer id = resultado.getInt("id");
+                    String nombre = resultado.getString("nombre");
+                    String tipoActividad = resultado.getString("tipo_actividad");
+                    Integer duracion = resultado.getInt("duracion");
+                    Double precio = resultado.getDouble("precio");
+                    Integer plazasMaximas = resultado.getInt("plazas_maximas");
+                    Integer plazasOcupadas = resultado.getInt("plazas_ocupadas");
+                    Actividades actividad = new Actividades(id, nombre, tipoActividad, duracion, precio, plazasMaximas, plazasOcupadas);
+                    actividadesCompletas.add(actividad);
+                    return actividadesCompletas;
+                }
+        } catch (Exception e) {
+            System.err.println("No se han encontrado los resultados");
+            return new ArrayList<>();
+        }
+        return actividadesCompletas;
     }
     @Override
     public Double calcularIngresosTotales(Integer plazasOcupadas, Double precio) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calcularIngresosTotales'");
+        Double ingresosTotales = plazasOcupadas * precio;
+        return ingresosTotales;
     }
 }

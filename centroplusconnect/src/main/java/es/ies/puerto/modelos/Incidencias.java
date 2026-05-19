@@ -1,5 +1,5 @@
 package es.ies.puerto.modelos;
-import java.sql.Date;
+import java.util.Date;
 /**
  * @author AlejandroDonGar
  * @version 1.0.0
@@ -13,7 +13,17 @@ public class Incidencias {
     private String descripcion;
     private Date fecha;
     private String estado;
+    /**
+     * Constructor vacio de la clase Incidencias
+     */
     public Incidencias(){}
+    /**
+     * Constructor identificador de la incidencia
+     * @param id identificador de la incidencia
+     */
+    public Incidencias(Integer id) {
+        this.id = id;
+    }
     /**
      * Constructor completo de la clase Incidencias
      * @param id identificador de la incidencia
@@ -91,5 +101,4 @@ public class Incidencias {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
 }

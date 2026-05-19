@@ -3,40 +3,43 @@ import java.util.List;
 import es.ies.puerto.modelos.Actividades;
 import es.ies.puerto.modelos.Reservas;
 /**
+ * @author AlejandroDonGar
+ * @version 1.0.0
  * 
+ * Interfaz IActividadRepository
  */
 public interface IActividadRepository {
     /**
-     * Lista todos los usuarios
+     * Lista todas las actividades
      * @return Devuelve una lista de todos los usuarios
      */
     public List<Actividades> findAll();
     /**
-     * Busca un usuario por su id
+     * Busca una actividad por su id
      * @param id identificador del usuario a buscar
      * @return Devuelve un usuario
      */
     public Actividades findByID(Integer id);
     /**
-     * Guarda un usuario en la base de datos
-     * @param usuario usuario a guardar
+     * Guarda una actividad en la base de datos
+     * @param actividad actividad a guardar
      * @return Devuelve true o false
      */
     public boolean save(Actividades actividad);
     /**
-     * Actualiza un usuario
-     * @param usuario usuario a actualizar
+     * Actualiza una actividad
+     * @param actividad actividad a actualizar
      * @return Devuelve true o false
      */
     public boolean update(Actividades actividad);
     /**
-     * Borra un usuario
-     * @param usuario usuario a borrar
+     * Borra una actividad
+     * @param actividad actividad a borrar
      * @return Devuelve true o false
      */
     public boolean delete(Actividades actividad);
     /**
-     * Crea una nueva reserva
+     * Crea una nueva actividad
      * @param idCliente cliente que realiza la reserva
      * @param idActividad actividad de la reserva
      * @return Devuelve true o false
@@ -44,16 +47,15 @@ public interface IActividadRepository {
     public Reservas reservarPlaza(Integer idCliente, Integer idActividad);
     /**
      * Cancela una reserva
-     * @param id identificador de la reserva 
+     * @param idActividad identificador de la reserva 
      * @return Devuelve true o false
      */
-    public boolean cancelarPlaza(Integer id);
+    public boolean cancelarPlaza(Integer idActividad);
     /**
      * Lista las actividades con su aforo completo
-     * @param plazasOcupadas plazas ocupadas en la acividad
      * @return Devuelve una lista de actividades completas
      */
-    public List<Actividades> findCompletas(Integer plazasOcupadas);
+    public List<Actividades> findCompletas();
     /**
      * Calcula los ingresos totales por actividad
      * @param plazasOcupadas plazas totales ocupadas

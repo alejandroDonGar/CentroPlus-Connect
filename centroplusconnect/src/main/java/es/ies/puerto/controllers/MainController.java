@@ -6,5 +6,4 @@ package es.ies.puerto.controllers;
  * Clase MainController
  */
 public class MainController {
-
 }

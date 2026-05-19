@@ -12,48 +12,48 @@ import es.ies.puerto.modelos.Usuarios;
  * Clase Validaciones
  */
 public class Validaciones {
-    public boolean esCadenaValida(String value) {
+    public static boolean esCadenaValida(String value) {
         return value!=null && !value.isEmpty();
     }
-    public boolean esIntegerValido(Integer value) {
+    public static boolean esIntegerValido(Integer value) {
         return value!=null && value>=1; 
     }
-    public boolean esDoubleValido(Double value) {
+    public static boolean esDoubleValido(Double value) {
         return value!=null && value>0; 
     }
-    public boolean esDniValido(String value) {
+    public static boolean esDniValido(String value) {
         return value!=null && Pattern.matches("^[0-9]{8}[A-Z]$", value);
     }
-    public boolean esEmailValido(String value) {
+    public static boolean esEmailValido(String value) {
         return value!=null && Pattern.matches("^[A-ZÑÁÉÍÓÚa-zñáéíóú0-9-+_]+@[A-ZÑÁÉÍÓÚa-zñáéíóú0-9-+_]+\\.[A-Za-z]{2,}$", value);
     }
-    public boolean esTelefonoValido(String value) {
+    public static boolean esTelefonoValido(String value) {
         return value!=null && Pattern.matches("^[+34]?[0-9]{9}$", value);
     }
-    public boolean esTipoUsuarioValido(String value) {
+    public static boolean esTipoUsuarioValido(String value) {
         return value!=null && Pattern.matches("^[ALUMNO]|[SOCIO]|[AMBOS]$", value);
     }
-    public boolean esTipoActividadValida(String value) {
+    public static boolean esTipoActividadValida(String value) {
         return value!=null && Pattern.matches("^[ACADEMICA]|[DEPORTIVA]$", value);
     }
-    public boolean esPlazasOcupadas(Integer value) {
+    public static boolean esPlazasOcupadas(Integer value) {
         Actividades actividad = new Actividades();
         if(value==null || value>actividad.getPlazasMaximas()) {
             return false;
         }
         return true;
     }
-    public boolean esFechaValida(Date value) {
+    public static boolean esFechaValida(Date value) {
         String fecha = value.toString();
         return fecha!=null && Pattern.matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", fecha);
     }
-    public boolean esEstadoReservaValido(String value) {
+    public static boolean esEstadoReservaValido(String value) {
         return value!=null && Pattern.matches("^[ACTIVA]|[CANCELADA]$", value);
     }
-    public boolean esEstadoIncidenciaValido(String value) {
+    public static boolean esEstadoIncidenciaValido(String value) {
         return value!=null && Pattern.matches("^[ABIERTA]|[EN_PROCESO]|[CERRADA]$", value);
     }
-    public boolean esUsuarioValido(Usuarios usuario) {
+    public static boolean esUsuarioValido(Usuarios usuario) {
         if(usuario==null 
             || !esIntegerValido(usuario.getId())
             || !esCadenaValida(usuario.getNombre())
@@ -65,7 +65,7 @@ public class Validaciones {
         }
         return true;
     }
-    public boolean esActividadValida(Actividades actividad) {
+    public static boolean esActividadValida(Actividades actividad) {
         if(actividad == null
             || !esIntegerValido(actividad.getId())
             || !esCadenaValida(actividad.getNombre())
@@ -78,7 +78,7 @@ public class Validaciones {
         }
         return true;
     }
-    public boolean esReservaValida(Reservas reserva) {
+    public static boolean esReservaValida(Reservas reserva) {
         if(reserva==null
             || !esIntegerValido(reserva.getId())
             || !esIntegerValido(reserva.getIdUsuario())
@@ -89,7 +89,7 @@ public class Validaciones {
             }
         return true;
     }
-    public boolean esIncidenciaValida(Incidencias incidencia) {
+    public static boolean esIncidenciaValida(Incidencias incidencia) {
         if(incidencia==null
             || !esIntegerValido(incidencia.getId())
             || !esIntegerValido(incidencia.getIdUsuario())

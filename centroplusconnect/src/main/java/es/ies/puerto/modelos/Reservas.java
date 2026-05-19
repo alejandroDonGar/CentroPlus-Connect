@@ -17,6 +17,13 @@ public class Reservas {
      */
     public Reservas(){}
     /**
+     * Constructor identificador de la reserva
+     * @param id identificador de la reserva
+     */
+    public Reservas(Integer id) {
+        this.id = id;
+    }
+    /**
      * Constructor completo de la clase Reservas
      * @param id identificador de la reseva
      * @param idUsuario identificador del usuario que realiza la reserva
